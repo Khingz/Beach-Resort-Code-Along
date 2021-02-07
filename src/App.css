@@ -107,16 +107,19 @@ h6 {
   cursor: pointer;
   outline: none;
 }
-.nav-icon {
+ .nav-icon {
   font-size: 1.5rem;
   color: var(--primaryColor);
 }
+
 .nav-links {
   height: 0;
   overflow: hidden;
   transition: var(--mainTransition);
   list-style-type: none;
 }
+
+
 .nav-links a {
   display: block;
   text-decoration: none;
@@ -128,6 +131,7 @@ h6 {
   font-weight: 600;
   letter-spacing: var(--mainSpacing);
 }
+
 .nav-links a:hover {
   color: var(--primaryColor);
 }
