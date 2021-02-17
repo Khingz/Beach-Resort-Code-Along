@@ -25,7 +25,7 @@ const RoomsFilter = ({ rooms }) => {
     })
     //get unique capacity
     let people = getUnique(rooms, 'capacity');
-    //map through jsx
+    //map through jsx for people
     people = people.map((item, index) => {
         return <option key={index} value={item}>{item}</option>
     })

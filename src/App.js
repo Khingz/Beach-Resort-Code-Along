@@ -7,6 +7,7 @@ import Rooms from './pages/Rooms';
 import SingleRoom from './pages/SingleRoom';
 import Error from './pages/Error';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         <Route path='/rooms/' exact component={Rooms} />
         <Route path='/rooms/:slug' exact component={SingleRoom} />
         <Route component={Error} />
-      </Switch>  
+      </Switch>
+      <Footer />  
     </>
   );
 }

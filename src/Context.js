@@ -1,5 +1,10 @@
 import React from 'react';
 import items from './data';
+import Client from './Contentful';
+
+// Client.getEntries({
+//     content_type: 'beachResort'
+// }).then(response => console.log(response.items));
 
 const RoomContext = React.createContext();
 
@@ -20,22 +25,32 @@ class RoomProvider extends React.Component {
         pets: false
     };
 
-    //get data function
+    //get data function using fetch
+    getData = async () => {
+        try {
+            let response = await Client.getEntries({
+                content_type: 'beachResort',
+            });
+            let rooms = this.formatData(response.items)
+            let featuredRooms = rooms.filter(room => room.featured === true);
+            let maxPrice = Math.max(...rooms.map(item => item.price));
+            let maxSize = Math.max(...rooms.map(item => item.size));
+            this.setState({
+                loading: false,
+                featuredRooms,
+                rooms,
+                sortedRooms: rooms,
+                price: maxPrice,
+                maxPrice,
+                maxSize
+            })
+        } catch(error) {
+            console.log(error);
+        }
+    }
 
     componentDidMount() {
-        let rooms = this.formatData(items)
-        let featuredRooms = rooms.filter(room => room.featured === true);
-        let maxPrice = Math.max(...rooms.map(item => item.price));
-        let maxSize = Math.max(...rooms.map(item => item.size))
-        this.setState({
-            loading: false,
-            featuredRooms,
-            rooms,
-            sortedRooms: rooms,
-            price: maxPrice,
-            maxPrice,
-            maxSize
-        })
+        this.getData();
     }
 
     formatData(items) {
@@ -51,12 +66,14 @@ class RoomProvider extends React.Component {
         return tempItems
     }
 
+    //get single room
     getRoom = slug => {
         let tempRooms = [...this.state.rooms];
         const room = tempRooms.find(room => room.slug === slug);
         return room;
     }
 
+    //handle change function
     handleChange = e => {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -66,6 +83,7 @@ class RoomProvider extends React.Component {
         }, this.filterRooms)
     }
 
+    //filter function
     filterRooms = () => {
         let {rooms, type, capacity, price, minSize, maxSize, breakfast, pets } = this.state;
 

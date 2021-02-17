@@ -517,3 +517,14 @@ h6 {
   }
 }
 /* end of rooms filter*/
+
+/* footer */
+  .footer-container {
+    background-color: var(--primaryColor);
+    width: 100%;
+    text-align: center;
+    color: var(--offWhite);
+    padding: 1.2rem;
+    font-size: 1.3rem;
+  }
+/* end of footer */
